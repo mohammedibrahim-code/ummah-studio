@@ -4,11 +4,537 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ummah Studio — Create With Purpose</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #080d0f;
+      color: #ffffff;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,10,0.95);
+      z-index: 100;
+    }
+
+    .logo {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: rgba(255,255,255,0.6) !important;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #fff;
+}
+
+    .logo span { color: #10b981; }
+
+    .nav-btn {
+      background: #10b981;
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: #34d399;
+      font-size: 13px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 58px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 span { color: #10b981; }
+
+    .hero p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+      background: #10b981;
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* PROBLEM */
+    .section {
+      padding: 5rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-label {
+      color: #10b981;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .section h2 {
+      font-size: 38px;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+
+    .section p {
+      color: rgba(255,255,255,0.5);
+      font-size: 17px;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .problem-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: left;
+    }
+
+    .problem-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .problem-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      margin: 0;
+    }
+
+    /* SOLUTION */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .step {
+      background: rgba(16,185,129,0.05);
+      border: 1px solid rgba(16,185,129,0.15);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .step-num {
+      width: 40px;
+      height: 40px;
+      background: #10b981;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      margin: 0 auto 1rem;
+    }
+
+    .step h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      margin: 0;
+    }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.75rem;
+      text-align: left;
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      margin: 0;
+    }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 700px;
+      margin: 2rem auto 0;
+    }
+
+    .price-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: left;
+    }
+
+    .price-card.pro {
+      border-color: #10b981;
+      background: rgba(16,185,129,0.05);
+    }
+
+    .price-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .price {
+      font-size: 40px;
+      font-weight: 700;
+      color: #10b981;
+      margin-bottom: 1.5rem;
+    }
+
+    .price span {
+      font-size: 16px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .price-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-features li {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .price-features li::before {
+      content: '✓ ';
+      color: #10b981;
+    }
+
+    /* WAITLIST */
+    .waitlist {
+      background: rgba(16,185,129,0.05);
+      border-top: 1px solid rgba(16,185,129,0.15);
+      border-bottom: 1px solid rgba(16,185,129,0.15);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .waitlist h2 {
+      font-size: 38px;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+
+    .waitlist p {
+      color: rgba(255,255,255,0.5);
+      font-size: 17px;
+      margin-bottom: 2rem;
+    }
+
+    .waitlist-form {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .waitlist-form input {
+      padding: 14px 20px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-size: 15px;
+      width: 300px;
+    }
+
+    .waitlist-form input::placeholder { color: rgba(255,255,255,0.3); }
+
+    /* FOOTER */
+footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.footer-links a {
+  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #10b981;
+}
+  </style>
 </head>
 <body>
 
-  <h1>Ummah Studio</h1>
-  <p>Create With Purpose.</p>
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Ummah <span>Studio</span></div>
+    <div class="nav-links">
+      <a href="#problem">Problem</a>
+      <a href="#solution">Solution</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <button class="nav-btn" onclick="document.querySelector('.waitlist').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">AI-Powered Creator Platform</div>
+    <h1>Create With <span>Purpose.</span></h1>
+    <p>Turn your long-form videos into short-form social content automatically. Built for Muslim creators, educators, and ethical brands.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">Start Creating Free</button>
+      <button class="btn-secondary">See How It Works</button>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section" id="problem">
+    <div class="section-label">The Problem</div>
+    <h2>Creators waste hours on repetitive work</h2>
+    <p>Editing, clipping, captioning, formatting — the same tasks over and over. Your time should go into creating, not editing.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <h3>Hours wasted editing</h3>
+        <p>Manual video editing takes hours that could be spent creating better content.</p>
+      </div>
+      <div class="problem-card">
+        <h3>Fragmented tools</h3>
+        <p>Jumping between 5 different apps just to publish one piece of content.</p>
+      </div>
+      <div class="problem-card">
+        <h3>No ethical platform</h3>
+        <p>Existing tools don't consider the values of Muslim creators and ethical brands.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="section" id="solution">
+    <div class="section-label">The Solution</div>
+    <h2>One upload. Ten pieces of content.</h2>
+    <p>Ummah Studio automates your entire creator workflow from one video upload.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Upload Your Video</h3>
+        <p>Podcast, lecture, interview — any long-form content works.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>AI Processes Everything</h3>
+        <p>Captions, highlights, vertical formatting — done automatically.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Export and Publish</h3>
+        <p>TikTok, Reels, YouTube Shorts — ready in minutes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="section-label">Features</div>
+    <h2>Everything a creator needs</h2>
+    <p>Powerful AI tools built specifically for ethical content creators.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎙️</div>
+        <h3>AI Captions</h3>
+        <p>Automatic subtitles with animated styling, emoji support, and multilingual options.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✂️</div>
+        <h3>Auto Clipping</h3>
+        <p>AI detects the best highlights and creates short clips automatically.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Vertical Formatting</h3>
+        <p>Instantly converts your content to vertical format for social media.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Workflow Automation</h3>
+        <p>One upload replaces hours of manual editing and exporting.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="pricing">
+    <div class="section-label">Pricing</div>
+    <h2>Simple, honest pricing</h2>
+    <p>Start free. Upgrade when you're ready.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>Free</h3>
+        <div class="price">$0 <span>/month</span></div>
+        <ul class="price-features">
+          <li>5 exports per month</li>
+          <li>AI captions</li>
+          <li>Basic clipping</li>
+          <li>Watermarked exports</li>
+        </ul>
+        <button class="btn-secondary" style="width:100%">Get Started Free</button>
+      </div>
+      <div class="price-card pro">
+        <h3>Pro ⭐</h3>
+        <div class="price">$19 <span>/month</span></div>
+        <ul class="price-features">
+          <li>Unlimited exports</li>
+          <li>HD rendering</li>
+          <li>Advanced AI tools</li>
+          <li>No watermark</li>
+        </ul>
+        <button class="btn-primary" style="width:100%">Start Pro</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAITLIST -->
+  <section class="waitlist">
+    <h2>Be the first to create with purpose.</h2>
+    <p>Join the waitlist and get early access when we launch.</p>
+    <form class="waitlist-form" action="https://formspree.io/f/mredezqb" method="POST" data-next="https://ummah-studio.vercel.app">
+        <input type="email" name="email" placeholder="Enter your email address" required />
+        <button type="submit" class="btn-primary">Join Waitlist</button>
+      </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+      <a href="#">YouTube</a>
+      <a href="#">Twitter / X</a>
+    </div>
+    <p>© 2025 Ummah Studio. Built with purpose.</p>
+  </footer>
 
 </body>
 </html>
+git remote set-url origin https://mohammedibrahim-code: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@github.com/mohammedibrahim-code/ummah-studio.git
