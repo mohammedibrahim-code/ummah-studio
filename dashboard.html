@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Ummah Studio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; display: flex; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px;
+      min-height: 100vh;
+      background: #111;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: fixed;
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-logo img { height: 32px; border-radius: 6px; }
+    .sidebar-logo span { font-size: 16px; font-weight: 600; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .nav-item.active { background: rgba(16,185,129,0.1); color: #10b981; }
+    .nav-item .icon { font-size: 18px; width: 20px; text-align: center; }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 1rem;
+    }
+
+    /* MAIN */
+    .main {
+      margin-left: 240px;
+      flex: 1;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .topbar h1 { font-size: 22px; font-weight: 600; }
+    .topbar p { font-size: 14px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+    .btn-primary {
+      background: #10b981;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* STATS */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .stat-value span { font-size: 13px; color: #10b981; margin-left: 6px; }
+
+    /* PROJECTS */
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .project-card {
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .project-card:hover { border-color: rgba(16,185,129,0.3); }
+
+    .project-thumb {
+      width: 100%;
+      height: 120px;
+      background: rgba(16,185,129,0.08);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+
+    .project-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .project-meta { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+    .status-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    .status-badge.done { background: rgba(16,185,129,0.15); color: #10b981; }
+    .status-badge.processing { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .status-badge.draft { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.4); }
+
+    /* UPLOAD AREA */
+    .upload-area {
+      border: 2px dashed rgba(16,185,129,0.3);
+      border-radius: 16px;
+      padding: 3rem;
+      text-align: center;
+      background: rgba(16,185,129,0.03);
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 2rem;
+    }
+
+    .upload-area:hover { border-color: #10b981; background: rgba(16,185,129,0.06); }
+    .upload-icon { font-size: 48px; margin-bottom: 1rem; }
+    .upload-area h3 { font-size: 18px; font-weight: 600; margin-bottom: 0.5rem; }
+    .upload-area p { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem; }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <img src="logo-green.png" alt="Ummah Studio" />
+      <span>Ummah Studio</span>
+    </div>
+
+    <a class="nav-item active" href="#">
+      <span class="icon">⚡</span> Dashboard
+    </a>
+    <a class="nav-item" href="#">
+      <span class="icon">📁</span> Projects
+    </a>
+    <a class="nav-item" href="#">
+      <span class="icon">🎬</span> Uploads
+    </a>
+    <a class="nav-item" href="#">
+      <span class="icon">✂️</span> Clips
+    </a>
+    <a class="nav-item" href="#">
+      <span class="icon">📤</span> Exports
+    </a>
+    <a class="nav-item" href="#">
+      <span class="icon">⚙️</span> Settings
+    </a>
+
+    <div class="sidebar-bottom">
+      <a class="nav-item" href="index.html">
+        <span class="icon">🏠</span> Back to Site
+      </a>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <h1>Welcome back 👋</h1>
+        <p>Here's what's happening with your content today.</p>
+      </div>
+      <button class="btn-primary">+ New Project</button>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Projects</div>
+        <div class="stat-value">3 <span>↑ 2 new</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Clips Generated</div>
+        <div class="stat-value">24 <span>↑ 8 this week</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Exports Ready</div>
+        <div class="stat-value">18 <span>↑ Ready</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Time Saved</div>
+        <div class="stat-value">6h <span>↑ This month</span></div>
+      </div>
+    </div>
+
+    <!-- UPLOAD -->
+    <div class="upload-area">
+      <div class="upload-icon">☁️</div>
+      <h3>Upload a new video</h3>
+      <p>Drag and drop your podcast, lecture, or video here</p>
+      <button class="btn-primary">Choose File</button>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="section-title">Recent Projects</div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-thumb">🎙️</div>
+        <div class="project-title">Podcast Episode 12</div>
+        <div class="project-meta">45 min • 8 clips generated</div>
+        <span class="status-badge done">✓ Complete</span>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb">📚</div>
+        <div class="project-title">Islamic Finance Lecture</div>
+        <div class="project-meta">1h 20min • Processing...</div>
+        <span class="status-badge processing">⏳ Processing</span>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb">🎥</div>
+        <div class="project-title">Q&A Session</div>
+        <div class="project-meta">30 min • Not started</div>
+        <span class="status-badge draft">Draft</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
